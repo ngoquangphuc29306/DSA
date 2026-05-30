@@ -12,6 +12,7 @@ public:
                 l = m + 1;
             }
             else if(nums[m] < nums[r]){
+                // Min có thể là chính nó, bên phải hoặc bên trái nó
                 r = m;
             }
         }
