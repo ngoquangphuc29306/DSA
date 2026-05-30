@@ -1,6 +1,7 @@
 class Solution {
 public:
     int findMin(vector<int>& nums) {
+        // Min là giá trị ngay đoạn gãy
         int n = nums.size();
         int l = 0;
         int r = n - 1;
