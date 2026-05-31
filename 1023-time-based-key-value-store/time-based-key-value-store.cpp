@@ -1,18 +1,29 @@
 class TimeMap {
 public:
-    map<string,map<int, string>> mp; 
+    map<string, vector<pair<int, string>>> mp; 
     TimeMap() {
         
     }
     
     void set(string key, string value, int timestamp) {
-        mp[key][timestamp] = value;
+        mp[key].push_back({timestamp, value});
     }
     
     string get(string key, int timestamp) {
-        auto it = mp[key].upper_bound(timestamp);
-        if(it == mp[key].begin()) return "";
-        it--;
-        return mp[key][it->first];
+        string answer = "";
+        auto& values = mp[key];
+        int l = 0;
+        int r = values.size() - 1;
+        while(l <= r){
+            int mid = (l + r) / 2;
+            if(values[mid].first <= timestamp){
+                answer = values[mid].second;
+                l = mid + 1;
+            }
+            else{
+                r = mid - 1;
+            }
+        }
+        return answer;
     }
 };
