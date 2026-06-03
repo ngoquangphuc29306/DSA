@@ -1,6 +1,9 @@
 class Solution {
 public:
     int characterReplacement(string s, int k) {
+        /*
+            Số kí tự cần thay thế = độ dài window - kí tự xuất hiện nhiều nhất
+        */
         map<char, int> cnt;
         int res = 0;
         int maxFreq = 0;
