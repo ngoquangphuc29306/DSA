@@ -1,41 +1,43 @@
 class Solution {
 public:
+    /*
+        Ý tưởng:
+            - Một hoán vị của s1 có độ dài là s1.size
+            - Dùng cửa sổ kiểm tra đoạn con của s2 có độ dài là s1.size
+    */
     bool checkInclusion(string s1, string s2) {
         if (s1.size() > s2.size())
             return false;
 
-        unordered_map<char, int> cnt;
+        unordered_map<char, int> cnt1;
+        unordered_map<char, int> cnt2;
 
-        for (char c : s1)
-            cnt[c]++;
+        // Đếm ký tự của s1 và cửa sổ đầu tiên của s2
+        for(int i = 0; i < s1.size(); i++){
+            cnt1[s1[i]]++;
+            cnt2[s2[i]]++;
+        }
 
-        int l = 0;
-        int n_letters = s1.size();
+        if(cnt1 == cnt2) return true;
 
-        for (int r = 0; r < s2.size(); r++) {
-            int n = cnt[s2[r]];
-            cnt[s2[r]]--;
+        int left = 0;
+        for(int right = s1.size(); right < s2.size(); right++){
+            // Thêm ký tự mới ở bên phải cửa sổ
+            cnt2[s2[right]]++;
 
-            if (n > 0) {
-                // Ký tự này đang cần thiết để tạo hoán vị của s1
-                n_letters--;
-            } else {
-                while (cnt[s2[r]] < 0) {
-                    cnt[s2[l]]++;
+            // Loại bỏ ký tự cũ ở bên trái cửa sổ
+            cnt2[s2[left]]--;
 
-                    if (cnt[s2[l]] > 0) {
-                        // Tránh trường hợp subfrequence
-                        n_letters++;
-                    }
-                    l++;
-                }
+            if(cnt2[s2[left]] == 0){
+                cnt2.erase(s2[left]);
             }
 
-            if (n_letters == 0)
-                return true;
+            left++;
+
+            if(cnt1 == cnt2) return true;
         }
         return false;
     }
 };
-// Time Complexity O(n), n = len(s1) + len(s2)
+// Time Complexity O(n), n = len(s1) + 26 - (len(s1) - len(s2))
 // Space Complexity O(26) = O(1)
