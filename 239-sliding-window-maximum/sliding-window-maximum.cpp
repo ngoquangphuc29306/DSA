@@ -17,7 +17,7 @@ public:
         ans.push_back(nums[dq.front()]);
 
         for(int i = k; i < nums.size(); i++){
-            while(!dq.empty() && i - dq.front() >= k){
+            if(!dq.empty() && i - dq.front() >= k){
                 // Xóa phần tử đẫ ra khỏi cửa sổ
                 dq.pop_front();
             }
