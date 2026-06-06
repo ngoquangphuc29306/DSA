@@ -1,28 +1,33 @@
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        deque<int> dq;
+        vector<int> ans;
 
-        multiset<int> se;
-        
         for(int i = 0; i < k; i++){
-            se.insert(nums[i]);
+            // Duy truy dq giảm dần
+            // dp.front là phần tử lớn nhất
+            while(!dq.empty() && nums[i] >= nums[dq.back()]){
+                dq.pop_back();
+            }
+            dq.push_back(i);
         }
 
-        auto it = se.end();
-        it--;
+        // Thêm phần tử lớn nhất vào đáp án
+        ans.push_back(nums[dq.front()]);
 
-        vector<int> ans;
-        ans.push_back(*it);
-        int l = 0;
-        for(int r = k; r < nums.size(); r++){
-            se.insert(nums[r]);
-            se.erase(se.find(nums[l]));
-            
-            l++;
+        for(int i = k; i < nums.size(); i++){
+            while(!dq.empty() && i - dq.front() >= k){
+                // Xóa phần tử đẫ ra khỏi cửa sổ
+                dq.pop_front();
+            }
 
-            auto it = se.end();
-            it--;
-            ans.push_back(*it);
+            while(!dq.empty() && nums[i] >= nums[dq.back()]){
+                dq.pop_back();
+            }
+
+            dq.push_back(i);
+            ans.push_back(nums[dq.front()]);
         }
         return ans;
     }
