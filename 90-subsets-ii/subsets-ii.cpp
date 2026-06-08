@@ -18,6 +18,8 @@ public:
         }
     }
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        // Để các phần tử giống nhau đứng cạnh nhau
+        // Dễ loại bỏ duplicate
         sort(nums.begin(), nums.end());
         Try(nums, 0);
         return res;
