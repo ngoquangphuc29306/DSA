@@ -1,29 +1,24 @@
 class Solution {
 public:
-    vector<int> x = vector<int>(50, 0);
     vector<int> path;
     vector<vector<int>> res;
 
-    void Try(vector<int> a, int i, int start, int sum, int target){
-        for(int j = start; j < a.size(); j++){
-            x[i] = a[j];
-            sum += a[j];
-            if(sum == target){
-                for(int l = 0; l <= i; l++){
-                    path.push_back(x[l]);
-                }
-                res.push_back(path);
-                path.clear();
-            }
-            else if(sum < target){
-                Try(a, i + 1, j, sum, target);
-            }
-            sum -= a[j];
+    void Try(vector<int> a, int start, int target){
+        if(target == 0){
+            res.push_back(path);
+            return;
         }
+
+        if(target < 0) return;
+
+        for(int j = start; j < a.size(); j++){
+            path.push_back(a[j]);
+            Try(a, j, target - a[j]);
+            path.pop_back();
+        }        
     }
     vector<vector<int>> combinationSum(vector<int>& nums, int target) {
-        sort(nums.begin(), nums.end());
-        Try(nums, 0, 0, 0, target);
+        Try(nums, 0, target);
         return res;
     }
 };
