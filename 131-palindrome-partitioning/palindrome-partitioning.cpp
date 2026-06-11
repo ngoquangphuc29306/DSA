@@ -3,10 +3,13 @@ public:
     vector<vector<string>> res;
     vector<string> path;
 
-    bool is_palindrome(string s){
-        string t = s;
-        reverse(t.begin(), t.end());
-        return t == s;
+    bool is_palindrome(string& s, int l, int r){
+        while(l < r){
+            if(s[l] != s[r]) return false;
+            l++;
+            r--;
+        }
+        return true;
     }
 
     void backtrack(string& s, int i){
@@ -16,10 +19,8 @@ public:
         }
 
         for(int j = i; j < s.size(); j++){
-            string substring = s.substr(i, j - i + 1);
-
-            if(is_palindrome(substring)){
-                path.push_back(substring);
+            if(is_palindrome(s, i, j)){
+                path.push_back(s.substr(i, j - i + 1));
                 backtrack(s, j + 1);
                 path.pop_back();
             }
