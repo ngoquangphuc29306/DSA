@@ -2,6 +2,7 @@ class Solution {
 public:
     vector<vector<string>> res;
     vector<string> path;
+    vector<vector<bool>> dp;
 
     bool is_palindrome(string& s, int l, int r){
         while(l < r){
@@ -19,7 +20,7 @@ public:
         }
 
         for(int j = i; j < s.size(); j++){
-            if(is_palindrome(s, i, j)){
+            if(dp[i][j]){
                 path.push_back(s.substr(i, j - i + 1));
                 backtrack(s, j + 1);
                 path.pop_back();
@@ -28,6 +29,23 @@ public:
     }
 
     vector<vector<string>> partition(string s) {
+        int n = s.size();
+        dp.assign(n , vector<bool>(n, false));
+
+        for(int len = 1; len <= n; len++){
+            for(int start = 0; start + len - 1 < n; start++){
+                int end = start + len - 1;
+
+                if(s[start] == s[end]){
+                    if(len <= 2){
+                        dp[start][end] = true;
+                    }
+                    else{
+                        dp[start][end] = dp[start + 1][end - 1];
+                    }
+                }
+            }
+        }
         backtrack(s, 0);
         return res;
     }
