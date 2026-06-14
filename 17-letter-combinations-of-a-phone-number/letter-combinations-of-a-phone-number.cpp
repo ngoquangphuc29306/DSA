@@ -20,6 +20,7 @@ public:
     }
 
     vector<string> letterCombinations(string digits) {
+        if(digits.empty()) return {};
         unordered_map<int, vector<char>> mp;
         mp[2]={'a', 'b', 'c'};
         mp[3]={'d', 'e', 'f'};
