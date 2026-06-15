@@ -19,10 +19,10 @@ public:
 
         for(int col = 0; col < n; col++){
 
-            if(!cot[col] && !xuoi[row - col + n] && !nguoc[row + col]){
+            if(!cot[col] && !xuoi[row - col + n] && !nguoc[row + col + 1]){
                 cot[col] = 1;
                 xuoi[row - col + n] = 1;
-                nguoc[row + col] = 1;
+                nguoc[row + col + 1] = 1;
 
                 path[row][col] = 'Q';
                 
@@ -32,7 +32,7 @@ public:
                 
                 cot[col] = 0;
                 xuoi[row - col + n] = 0;
-                nguoc[row + col] = 0;
+                nguoc[row + col + 1] = 0;
 
             }
         }
