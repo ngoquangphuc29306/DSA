@@ -31,10 +31,6 @@ class Solution(object):
             return op == 0
         
         ans = []
-        for paren in L:
-            if is_valid(paren):
-                ans.append(paren)
-
-        return ans
+        return [paren for paren in L if is_valid(paren)]
 
 
