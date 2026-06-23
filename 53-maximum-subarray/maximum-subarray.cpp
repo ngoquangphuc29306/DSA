@@ -5,7 +5,8 @@ public:
         int cur = nums[0], res = nums[0];
 
         for(int i = 1; i < n; i++){
-            cur = max(nums[i], cur + nums[i]);
+            if(cur < 0) cur = 0;
+            cur += nums[i];
             res = max(res, cur);
         }
 
