@@ -1,5 +1,7 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
+        # Time: O(n * t)
+        # Space: O(t)
         dp = [float('inf')] * (amount + 1)
         dp[amount] = 0
 
