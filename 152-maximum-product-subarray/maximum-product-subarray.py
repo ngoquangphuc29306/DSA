@@ -1,23 +1,21 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
-        # Dynamic programming
         # Time -> O(n)
-        # Space -> O(n)
-        if len(nums) == 1:
-            return nums[0]
+        # Space -> O(1)
         n = len(nums)
-        maxPro = [1] * (n + 1)
-        minPro = [1] * (n + 1)
 
-        maxPro[0] = nums[0]
-        minPro[0] = nums[0]
+        prefix = 1
+        suffix = 1
 
-        ans = 0
+        ans = nums[0]
 
         for i in range(n):
-            maxPro[i] = max(nums[i], maxPro[i - 1] * nums[i], minPro[i - 1] * nums[i])
-            minPro[i] = min(nums[i], minPro[i - 1] * nums[i], maxPro[i - 1] * nums[i])
+            if(prefix == 0): prefix = 1
+            if(suffix == 0): suffix = 1
 
-            ans = max(ans, maxPro[i])
+            prefix *= nums[i]
+            suffix *= nums[n - i - 1]
+
+            ans = max(ans, prefix, suffix)
 
         return ans
