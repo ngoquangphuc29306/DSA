@@ -1,5 +1,8 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
+        # Dynamic programming
+        # Time -> O(n)
+        # Space -> O(n)
         if len(nums) == 1:
             return nums[0]
         n = len(nums)
