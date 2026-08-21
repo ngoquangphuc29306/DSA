@@ -15,7 +15,9 @@ public:
         if(list1 == NULL) return list2;
         if(list2 == NULL) return list1;
         ListNode dummy(0);
-        ListNode* tail = &dummy;
+        ListNode* tail = &dummy; // biến thường trên stack, tự hủy khi hàm kết thúc
+        // ListNode* dummy = new ListNode(); dummy được cấp phát động trên heap nên cuối phải delete
+        //ListNode* tail = dummy;
         while(list1 != NULL && list2 != NULL){
             if(list1->val < list2->val){
                 tail->next = list1;
