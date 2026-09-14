@@ -20,7 +20,7 @@ public:
 
     bool makesquare(vector<int>& matchsticks) {
         int sum = 0;
-        sort(matchsticks.begin(), matchsticks.end());
+        sort(matchsticks.rbegin(), matchsticks.rend());
         for(int i = 0; i < matchsticks.size(); i++){
             sum += matchsticks[i];
         }
