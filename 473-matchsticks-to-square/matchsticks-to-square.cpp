@@ -20,17 +20,15 @@ public:
 
     bool makesquare(vector<int>& matchsticks) {
         int sum = 0;
-        sort(matchsticks.rbegin(), matchsticks.rend());
         for(int i = 0; i < matchsticks.size(); i++){
             sum += matchsticks[i];
         }
-        if(sum % 4 != 0){
-            return false;
-        }
-        else{
-            vector<int> sides(4, 0);
-            int target = sum / 4;
-            return backtrack(0, matchsticks, sides, target);
-        }
+
+        sort(matchsticks.rbegin(), matchsticks.rend());
+        if(sum % 4 != 0) return false;
+
+        vector<int> sides(4, 0);
+        int target = sum / 4;
+        return backtrack(0, matchsticks, sides, target);
     }
 };
