@@ -29,8 +29,13 @@ public:
 
         if(sum % k != 0) return false;
 
+        sort(nums.rbegin(), nums.rend());
+
         vector<int> sides(k, 0);
         int target = sum / k;
+
+        if(nums[0] > target) return false;
+
         return backtrack(0, sides, nums, target, k);
     }
 };
