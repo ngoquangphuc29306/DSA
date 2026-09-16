@@ -1,41 +1,36 @@
 class Solution {
 public:
 
-    bool backtrack(int index, vector<int>& sides, vector<int>& nums, int target, int k){
-        if (index == nums.size()){
-            for(int i = 0; i < k; i++){
-                if(sides[i] != target){
-                    return false;
-                }
-            }
-            return true;
+    bool backtrack(int index, int cur_sum, int target, int k_left, vector<bool>& used, vector<int>& nums){
+        if(k_left == 1) return true;
+
+        if(cur_sum == target){
+            return backtrack(0, 0, target, k_left - 1, used, nums);
         }
 
-        for(int i = 0; i < k; i++){
-            if(sides[i] + nums[index] <= target){
-                sides[i] += nums[index];
-                if(backtrack(index + 1, sides, nums, target, k)){
-                    return true;
-                }
-                sides[i] -= nums[index];
-            }
+        for(int i = index; i < nums.size(); i++){
+            if(used[i] || cur_sum + nums[i] > target) continue;
 
-            if(sides[i] == 0) break;
+            used[i] = true;
+            if(backtrack(i + 1, cur_sum + nums[i], target, k_left, used, nums)){
+                return true;
+            }
+            used[i] = false;
+
+            if(cur_sum == 0) break;
         }
+
         return false;
     }
     bool canPartitionKSubsets(vector<int>& nums, int k) {
         int sum = accumulate(nums.begin(), nums.end(), 0);
-
         if(sum % k != 0) return false;
 
-        sort(nums.rbegin(), nums.rend());
-
-        vector<int> sides(k, 0);
         int target = sum / k;
-
+        sort(nums.rbegin(), nums.rend());
         if(nums[0] > target) return false;
 
-        return backtrack(0, sides, nums, target, k);
+        vector<bool> used(nums.size(), false);
+        return backtrack(0, 0, target, k, used, nums);
     }
 };
