@@ -1,6 +1,3 @@
-#include <vector>
-using namespace std;
-
 class Solution {
 public:
     void backtrack(int i, int& res, int n, vector<int>& c, vector<int>& d1, vector<int>& d2) {
