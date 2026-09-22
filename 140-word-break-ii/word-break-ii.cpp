@@ -8,19 +8,31 @@ public:
             return memo[start];
         }
 
+        vector<string> res;
+
         if(start == s.size()){
-            return {""};
+            res.push_back("");
+            return res;
         }
 
-        vector<string> res;
         for(int end = start + 1; end <= s.size(); end++){
             string word = s.substr(start, end - start);
-            if(dict.count(word)){
-                vector<string> sub_res = dfs(s, end);
-                for(auto sub: sub_res){
-                    res.push_back(word + (sub.empty() ? "": " ") + sub);
+            
+            if(!dict.count(word)){
+                continue;
+            }
+
+            vector<string> suffix = dfs(s, end);
+
+            for(auto sub: suffix){
+                if(sub.empty()){
+                    res.push_back(word);
+                }
+                else{
+                    res.push_back(word + " " + sub);
                 }
             }
+            
         }
         return memo[start] = res;
     }
